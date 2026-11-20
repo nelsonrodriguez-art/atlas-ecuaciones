@@ -1,0 +1,251 @@
+/* ============================================================
+   El Atlas de las Ecuaciones — hoja de estilos
+   Paleta: pergamino, tinta sepia, oro viejo, lacre, bosque, crepúsculo
+   ============================================================ */
+:root{
+  --perg:#f2e6c9; --perg2:#e3d0a3; --perg3:#d6bf8a;
+  --tinta:#3b2a1a; --tinta2:#5d4630;
+  --oro:#b8892b; --oro-osc:#7a5a12;
+  --lacre:#8c2f1e; --bosque:#2f4a34; --agua:#3d6a7d;
+  --sombra:rgba(59,42,26,.28);
+  --f-dec:"Cinzel Decorative","Cinzel",Georgia,serif;
+  --f-tit:"Cinzel",Georgia,serif;
+  --f-txt:"EB Garamond","Cormorant Garamond",Georgia,serif;
+  --ruido:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .16 0 0 0 0 .1 .22 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body.noche{
+  --perg:#1e2a44; --perg2:#18223a; --perg3:#2a3a5c;
+  --tinta:#ecdfc2; --tinta2:#c9bb9c;
+  --oro:#d9b25a; --oro-osc:#e6c77c;
+  --lacre:#e08a72; --bosque:#9cc9a6; --agua:#8fc0d4;
+  --sombra:rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--tinta); background-color:var(--perg);
+  background-image:var(--ruido);
+  font-family:var(--f-txt); font-size:19px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--lacre); outline-offset:2px; border-radius:3px}
+[hidden]{display:none !important}
+
+/* ---------- Barra superior ---------- */
+.barra{
+  position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:.6rem;
+  padding:.35rem .8rem; background:var(--perg2); background-image:var(--ruido);
+  border-bottom:2px solid var(--oro); box-shadow:0 2px 10px var(--sombra);
+}
+.barra .marca{font-family:var(--f-dec); font-weight:700; font-size:1rem; letter-spacing:.02em; white-space:nowrap}
+.btn-ico{
+  width:42px; height:42px; display:grid; place-items:center; cursor:pointer;
+  background:var(--perg); border:1.5px solid var(--oro); border-radius:50%;
+  transition:transform .2s;
+}
+.btn-ico:hover{transform:rotate(-8deg) scale(1.06)}
+.btn-ico svg{width:24px; height:24px; stroke:var(--tinta); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.migas{flex:1; min-width:0; font-family:var(--f-tit); font-size:.8rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.migas button{background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px}
+.migas .sep{margin:0 .4em; color:var(--oro-osc)}
+.cuenta-sellos{font-family:var(--f-tit); font-size:.8rem; white-space:nowrap; display:flex; align-items:center; gap:.35rem}
+.cuenta-sellos i{width:14px; height:14px; border-radius:50%; background:var(--lacre); display:inline-block; box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
+
+/* ---------- Índice lateral ---------- */
+.indice{
+  position:fixed; z-index:50; top:0; left:0; bottom:0; width:min(340px,88vw);
+  background:var(--perg); background-image:var(--ruido); border-right:3px double var(--oro);
+  box-shadow:6px 0 30px var(--sombra); padding:1rem 1rem 2rem; overflow:auto;
+  transform:translateX(-105%); transition:transform .3s ease; visibility:hidden;
+}
+.indice.abierto{transform:none; visibility:visible}
+.indice h2{font-family:var(--f-dec); font-size:1.1rem; margin:.2rem 0 1rem}
+.indice ol{list-style:none; margin:0; padding:0}
+.indice li button{
+  width:100%; text-align:left; background:none; border:0; border-bottom:1px dotted var(--perg3);
+  padding:.55rem .2rem; cursor:pointer; display:grid; grid-template-columns:2.6rem 1fr auto; gap:.3rem; align-items:baseline;
+}
+.indice li button:hover, .indice li button[aria-current="page"]{background:var(--perg2)}
+.indice .n{font-family:var(--f-tit); color:var(--oro-osc); font-size:.85rem}
+.indice .nm{font-family:var(--f-tit); font-size:.88rem}
+.indice .tm{grid-column:2; font-size:.85rem; font-style:italic; color:var(--tinta2)}
+.indice .sl{color:var(--lacre); font-size:.9rem}
+.velo{position:fixed; inset:0; z-index:45; background:rgba(20,12,4,.45)}
+.atajos{margin-top:1.2rem; font-size:.85rem; color:var(--tinta2)}
+kbd{font-family:var(--f-tit); font-size:.75em; border:1px solid var(--tinta2); border-radius:4px; padding:0 .35em; background:var(--perg2)}
+
+/* ---------- Vista del mapa ---------- */
+.mapa-marco{
+  position:relative; height:min(calc(100vh - 62px), 62.5vw); min-height:440px; overflow:hidden;
+  background:radial-gradient(ellipse at center, transparent 55%, rgba(59,42,26,.35) 100%);
+}
+.mapa-desliz{width:100%; height:100%; overflow:auto}
+.mapa-svg{display:block; height:100%; width:auto; aspect-ratio:1.6; margin:0 auto; transition:transform .7s cubic-bezier(.6,0,.3,1), opacity .7s}
+.mapa-svg.zoom{opacity:0}
+.polvo{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
+.mapa-svg text{font-family:var(--f-tit); fill:var(--tinta)}
+.mapa-svg .titulo-mapa{font-family:var(--f-dec); font-weight:700}
+.tinta{fill:none; stroke:var(--tinta); stroke-linecap:round; stroke-linejoin:round}
+.camino{fill:none; stroke:var(--tinta2); stroke-width:3; stroke-dasharray:2 11; stroke-linecap:round; opacity:.75}
+.camino.luz{stroke:var(--oro); stroke-width:5; stroke-dasharray:none; opacity:1; filter:drop-shadow(0 0 5px var(--oro))}
+.rio{fill:none; stroke:var(--agua); stroke-width:9; stroke-linecap:round; opacity:.55}
+.rio2{fill:none; stroke:var(--perg); stroke-width:2; stroke-dasharray:14 22; opacity:.8}
+.dibujar{stroke-dasharray:var(--len); stroke-dashoffset:var(--len); animation:trazo 2.4s ease forwards}
+@keyframes trazo{to{stroke-dashoffset:0}}
+.lugar{cursor:pointer}
+.lugar .disco{fill:var(--perg); stroke:var(--tinta); stroke-width:2.2; transition:fill .2s}
+.lugar .aro{fill:none; stroke:var(--oro); stroke-width:2}
+.lugar .glifo{fill:none; stroke:var(--tinta); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.lugar:hover .disco, .lugar:focus .disco{fill:var(--perg2)}
+.lugar:hover .aro, .lugar:focus .aro{stroke-width:4}
+.lugar:focus{outline:none}
+.lugar:focus-visible .aro{stroke:var(--lacre); stroke-width:5}
+.lugar .cinta{fill:var(--perg); stroke:var(--tinta2); stroke-width:1; opacity:.92}
+.lugar .lacre{fill:var(--lacre); stroke:#5e1c10; stroke-width:1}
+.lugar.sellado .aro{stroke:var(--lacre)}
+.ficha{
+  position:absolute; z-index:5; width:260px; pointer-events:none;
+  background:var(--perg); background-image:var(--ruido); border:1px solid var(--tinta2); outline:3px double var(--oro); outline-offset:-6px;
+  padding:.8rem 1rem; box-shadow:0 8px 24px var(--sombra); font-size:.9rem; line-height:1.35;
+}
+.ficha b{font-family:var(--f-tit); display:block; font-size:.92rem; margin-bottom:.15rem}
+.ficha .est{color:var(--oro-osc); letter-spacing:.15em}
+.bitacora{max-width:1100px; margin:0 auto; padding:2rem 1rem 3rem}
+.bitacora h2{font-family:var(--f-dec); font-size:1.5rem; text-align:center; margin:0 0 .3rem}
+.bitacora>p{text-align:center; max-width:60ch; margin:0 auto 1.6rem; font-style:italic}
+.ruta{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:0; border-top:1px solid var(--tinta2); border-left:1px solid var(--tinta2)}
+.ruta button{
+  width:100%; height:100%; text-align:left; cursor:pointer; background:none; border:0;
+  border-right:1px solid var(--tinta2); border-bottom:1px solid var(--tinta2); padding:.9rem 1rem;
+}
+.ruta button:hover{background:var(--perg2)}
+.ruta .n{font-family:var(--f-tit); color:var(--oro-osc)}
+.ruta .nm{font-family:var(--f-tit); font-weight:700; display:block; font-size:.95rem}
+.ruta .tm{font-style:italic; font-size:.92rem}
+.ruta .ok{float:right; color:var(--lacre); font-family:var(--f-tit); font-size:.75rem}
+.aviso-mem{text-align:center; font-size:.85rem; color:var(--tinta2); margin-top:1.5rem}
+
+/* ---------- Pergamino de región ---------- */
+.pergamino{max-width:900px; margin:0 auto; padding:0 1.2rem 4rem; transform-origin:top center}
+.pergamino.desplegar{animation:desplegar .7s cubic-bezier(.2,.7,.2,1)}
+@keyframes desplegar{from{clip-path:inset(0 0 100% 0); opacity:.4} to{clip-path:inset(0 0 0 0); opacity:1}}
+.estandarte{text-align:center; padding:2.4rem 0 1.4rem; border-bottom:3px double var(--oro); margin-bottom:.6rem}
+.estandarte .medallon{width:92px; height:92px; margin:0 auto .8rem}
+.estandarte .medallon svg{width:100%; height:100%}
+.estandarte h1{font-family:var(--f-dec); font-weight:700; font-size:clamp(1.6rem,5vw,2.7rem); line-height:1.15; margin:.1rem 0 .4rem}
+.estandarte .sec{font-family:var(--f-tit); font-size:.95rem; color:var(--oro-osc); margin:0}
+.estandarte .tema{font-style:italic; font-size:1.15rem; margin:0}
+.capitulos{position:sticky; top:59px; z-index:20; display:flex; flex-wrap:wrap; gap:.3rem .9rem; justify-content:center; padding:.45rem .2rem; background:var(--perg); background-image:var(--ruido); border-bottom:1px solid var(--perg3); font-family:var(--f-tit); font-size:.78rem}
+.capitulos button{background:none; border:0; cursor:pointer; padding:.15rem 0; border-bottom:2px solid transparent}
+.capitulos button:hover{border-bottom-color:var(--lacre)}
+.cuerpo h2{font-family:var(--f-tit); font-weight:700; font-size:1.45rem; margin:2.6rem 0 .8rem; padding-top:.4rem; display:flex; align-items:center; gap:.8rem; scroll-margin-top:110px}
+.cuerpo h2::after{content:""; flex:1; height:6px; border-top:1px solid var(--oro); border-bottom:1px solid var(--oro)}
+.cuerpo h3{font-family:var(--f-tit); font-size:1.08rem; margin:1.6rem 0 .4rem}
+.cuerpo p, .cuerpo li{max-width:72ch}
+.cuerpo .katex{font-size:1.02em}
+.cuerpo .katex-display{overflow-x:auto; overflow-y:hidden; padding:.2rem 0}
+.cronica{font-size:1.18rem; font-style:italic; margin-top:1.6rem}
+.cronica::first-letter{
+  font-family:var(--f-dec); font-style:normal; font-weight:700; font-size:3.6em; float:left; line-height:.82;
+  padding:.08em .12em 0 0; color:var(--lacre); text-shadow:1px 1px 0 var(--oro);
+}
+.def,.teo,.nota{margin:1.1rem 0; padding:.8rem 1.1rem; border-left:5px solid var(--oro); background:color-mix(in srgb,var(--perg2) 55%,transparent)}
+.teo{border-left-color:var(--lacre); outline:1px solid var(--perg3)}
+.nota{border-left-color:var(--bosque); font-size:.96em}
+.def>b:first-child,.teo>b:first-child,.nota>b:first-child{font-family:var(--f-tit); font-size:.9em}
+.cuerpo table{border-collapse:collapse; margin:1rem 0; font-size:.95em}
+.cuerpo th,.cuerpo td{border:1px solid var(--tinta2); padding:.35rem .7rem; text-align:left; vertical-align:top}
+.cuerpo th{font-family:var(--f-tit); font-size:.85em; background:var(--perg2)}
+
+/* Ejemplos por pasos */
+.ejemplo{margin:1.4rem 0; border:1px solid var(--tinta2); padding:1rem 1.2rem; position:relative; background:color-mix(in srgb,var(--perg) 70%,transparent); outline:3px double var(--perg3); outline-offset:3px}
+.ejemplo>h3{margin:0 0 .5rem; color:var(--lacre)}
+.ejemplo .paso{border-top:1px dotted var(--tinta2); padding:.5rem 0 .1rem; animation:aparecer .45s ease}
+.ejemplo .paso::before{content:"Paso " attr(data-n) "."; font-family:var(--f-tit); font-size:.78em; color:var(--oro-osc); margin-right:.5em}
+@keyframes aparecer{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+.botonera{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem}
+.btn{
+  font-family:var(--f-tit); font-size:.8rem; cursor:pointer; padding:.45rem .95rem;
+  background:var(--tinta); color:var(--perg); border:1px solid var(--tinta); border-radius:2px;
+}
+.btn:hover{background:var(--lacre); border-color:var(--lacre)}
+.btn.sec{background:transparent; color:var(--tinta)}
+.btn.sec:hover{background:var(--perg2); border-color:var(--tinta)}
+.btn:disabled{opacity:.45; cursor:default}
+
+/* Pruebas del Guardián */
+.prueba{margin:1rem 0; padding:.2rem 0 .8rem 3.2rem; border-bottom:1px dotted var(--tinta2); position:relative}
+.prueba::before{content:attr(data-n); position:absolute; left:0; top:.5rem; width:2.3rem; height:2.3rem; display:grid; place-items:center; font-family:var(--f-tit); font-weight:700; border:1.5px solid var(--tinta); border-radius:50%; box-shadow:0 0 0 3px var(--perg), 0 0 0 4px var(--oro)}
+.prueba details{margin:.3rem 0}
+.prueba summary{cursor:pointer; font-family:var(--f-tit); font-size:.8rem; color:var(--lacre)}
+.prueba details>div{padding:.4rem .9rem; margin-top:.3rem; border-left:3px solid var(--oro); background:color-mix(in srgb,var(--perg2) 50%,transparent)}
+
+/* Cuestionario / sello */
+.quiz{border:2px solid var(--tinta); padding:1.2rem 1.3rem; margin:1.2rem 0; outline:3px double var(--oro); outline-offset:4px}
+.quiz .q{padding:.7rem 0 1rem; border-bottom:1px dotted var(--tinta2)}
+.quiz .q>p:first-of-type{font-weight:600; margin:.2rem 0 .5rem}
+.quiz .ops{display:grid; gap:.35rem}
+.quiz .op{display:flex; gap:.6rem; align-items:baseline; text-align:left; cursor:pointer; background:transparent; border:1px solid var(--perg3); padding:.4rem .7rem; border-radius:2px}
+.quiz .op:hover{background:var(--perg2)}
+.quiz .op[aria-pressed="true"]{border-color:var(--tinta); background:var(--perg2); box-shadow:inset 4px 0 0 var(--oro)}
+.quiz .op.bien{border-color:var(--bosque); box-shadow:inset 4px 0 0 var(--bosque)}
+.quiz .op.mal{border-color:var(--lacre); box-shadow:inset 4px 0 0 var(--lacre)}
+.quiz input[type=text]{width:9rem; padding:.3rem .5rem; background:var(--perg); border:1px solid var(--tinta); border-radius:2px}
+.quiz .exp{margin-top:.5rem; padding:.5rem .8rem; font-size:.95em; border-left:4px solid var(--bosque); background:color-mix(in srgb,var(--perg2) 50%,transparent)}
+.quiz .exp.mal{border-left-color:var(--lacre)}
+.quiz .veredicto{font-family:var(--f-tit); font-size:.85rem}
+.resultado{display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; margin-top:1rem}
+.sello-lacre{width:96px; height:96px; flex:none}
+.sello-lacre.estampar{animation:estampar .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes estampar{from{transform:scale(2.4) rotate(-25deg); opacity:0} to{transform:none; opacity:1}}
+
+/* Laboratorios */
+.lab{margin:1.4rem 0; border:1px solid var(--tinta); background:color-mix(in srgb,var(--perg) 60%,transparent); padding:1rem; box-shadow:4px 4px 0 var(--perg3)}
+.lab h3{margin:0 0 .6rem; font-size:1rem}
+.lab .controles{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:flex-end; margin-bottom:.7rem; font-size:.9rem}
+.lab label{display:flex; flex-direction:column; gap:.15rem; font-family:var(--f-tit); font-size:.72rem}
+.lab label output{font-weight:700}
+.lab .error:empty{display:none}
+.lab input[type=text],.lab input[type=number],.lab select{font-family:var(--f-txt); font-size:1rem; padding:.25rem .45rem; background:var(--perg); border:1px solid var(--tinta2); border-radius:2px; min-width:0}
+.lab input[type=number]{width:5.2rem}
+.lab input[type=range]{accent-color:var(--lacre); width:150px}
+.lab canvas{display:block; width:100%; height:380px; background:color-mix(in srgb,var(--perg) 85%,#fff); border:1px solid var(--tinta2); touch-action:manipulation}
+.lab canvas.clic{cursor:crosshair}
+.lab .dos{display:grid; grid-template-columns:1fr 1fr; gap:.8rem}
+.lab .lectura{font-size:.88rem; min-height:1.5em; color:var(--tinta2); font-variant-numeric:tabular-nums; margin:.3rem 0 0}
+.lab .error{color:var(--lacre); font-size:.9rem; min-height:1.2em}
+.lab .tabla{max-height:240px; overflow:auto; border:1px solid var(--tinta2); margin-top:.6rem}
+.lab .tabla table{margin:0; width:100%; font-size:.85rem; font-variant-numeric:tabular-nums}
+.lab .tabla th{position:sticky; top:0}
+.lab .leyenda{display:flex; flex-wrap:wrap; gap:.3rem 1rem; font-size:.85rem; margin-top:.4rem}
+.lab .leyenda i{display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:.3em; vertical-align:-1px}
+.lab .formulas{font-size:.95rem; overflow-x:auto; padding:.3rem 0}
+.lab .datos{display:grid; grid-template-columns:repeat(4,1fr); gap:.4rem; font-variant-numeric:tabular-nums; font-size:.9rem; margin-top:.5rem}
+.lab .datos b{display:block; font-family:var(--f-tit); font-size:.7rem; font-weight:400; color:var(--tinta2)}
+
+/* Navegación entre regiones */
+.pasos{display:grid; grid-template-columns:1fr auto 1fr; gap:.8rem; align-items:center; margin-top:3rem; padding-top:1.2rem; border-top:3px double var(--oro)}
+.pasos .sig{justify-self:end; text-align:right}
+.pasos button.viaje{background:none; border:0; cursor:pointer; font-family:var(--f-tit); font-size:.85rem; padding:.4rem 0; max-width:100%}
+.pasos button.viaje small{display:block; font-family:var(--f-txt); font-style:italic; font-size:.9rem; color:var(--tinta2)}
+.pasos button.viaje:hover{color:var(--lacre)}
+.salto{position:absolute; left:-999px}
+.salto:focus{left:8px; top:8px; z-index:99; background:var(--perg); padding:.4rem .8rem}
+
+@media (max-width:720px){
+  body{font-size:17.5px}
+  .barra .marca{display:none}
+  .lab .dos{grid-template-columns:1fr}
+  .lab canvas{height:300px}
+  .lab .datos{grid-template-columns:repeat(2,1fr)}
+  .prueba{padding-left:0; padding-top:3rem}
+  .prueba::before{top:.4rem}
+  .capitulos{font-size:.7rem; gap:.2rem .7rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+  .dibujar{stroke-dashoffset:0}
+}
+@media print{.barra,.indice,.capitulos,.pasos,.polvo{display:none}}
